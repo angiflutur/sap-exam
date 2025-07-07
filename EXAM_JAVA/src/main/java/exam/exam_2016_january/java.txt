@@ -1,0 +1,87 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
+public class SecureCommunication {
+
+    public static void computeSHA1(String inputFile, String outputFile) throws NoSuchAlgorithmException, IOException {
+        FileInputStream fis = new FileInputStream(inputFile);
+        MessageDigest sha1Digest = MessageDigest.getInstance("SHA-1");
+
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = fis.read(buffer)) != -1) {
+            sha1Digest.update(buffer, 0, bytesRead);
+        }
+
+        byte[] hashBytes = sha1Digest.digest();
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hashBytes) {
+            hexString.append(String.format("%02x", b));
+        }
+
+        // Write the result to the output file
+        FileOutputStream outFile = new FileOutputStream(outputFile);
+        outFile.write(hexString.toString().getBytes());
+        outFile.close();
+        fis.close();
+
+        System.out.println("SHA-1 hash has been written to " + outputFile);
+    }
+
+    public static void decryptAESKey(String keystorePath, String keystorePassword, String alias, String keyPassword) throws Exception {
+        KeyStore keystore = KeyStore.getInstance("JKS");
+        keystore.load(new FileInputStream(keystorePath), keystorePassword.toCharArray());
+
+        PrivateKey privateKey = (PrivateKey) keystore.getKey(alias, keyPassword.toCharArray());
+
+        FileInputStream aesKeyFile = new FileInputStream("ClientiSM.key");
+        byte[] encryptedKey = aesKeyFile.readAllBytes();
+        aesKeyFile.close();
+
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        byte[] decryptedKey = cipher.doFinal(encryptedKey);
+
+        String decryptedKeyStr = new String(decryptedKey);
+        System.out.println("Decrypted AES key: " + decryptedKeyStr);
+    }
+
+    public static void decryptCommFile(String decryptedAESKey, String inputFile, String outputFile) throws Exception {
+        byte[] aesKey = decryptedAESKey.getBytes();
+
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        SecretKeySpec keySpec = new SecretKeySpec(aesKey, "AES");
+        cipher.init(Cipher.DECRYPT_MODE, keySpec);
+
+        FileInputStream encryptedFile = new FileInputStream(inputFile);
+        byte[] encryptedData = encryptedFile.readAllBytes();
+        byte[] decryptedData = cipher.doFinal(encryptedData);
+        encryptedFile.close();
+
+        FileOutputStream decryptedFile = new FileOutputStream(outputFile);
+        decryptedFile.write(decryptedData);
+        decryptedFile.close();
+
+        System.out.println(inputFile + " decrypted successfully.");
+    }
+
+    public static void main(String[] args) throws Exception {
+        // Task 1: Compute SHA-1
+        computeSHA1("ClientiSM.key", "SHA1Output.txt");
+
+        // Task 2: Decrypt AES Key
+        decryptAESKey("sapkeystore.ks", "passks", "sapkey1", "sapex2016");
+
+        // Task 3: Decrypt Comm.enc file
+        String decryptedAESKey = "your-decrypted-key"; // Replace with actual decrypted key
+        decryptCommFile(decryptedAESKey, "Comm.enc", "Comm.decrypted");
+    }
+}

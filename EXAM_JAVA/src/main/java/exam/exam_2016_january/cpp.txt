@@ -1,0 +1,118 @@
+#include <iostream>
+#include <fstream>
+#include <openssl/sha.h>
+#include <openssl/des.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+#include <iomanip>
+
+void computeSHA1(const std::string& inputFile, const std::string& outputFile) {
+    std::ifstream inFile(inputFile, std::ios::binary);
+    if (!inFile.is_open()) {
+        std::cerr << "Error opening input file." << std::endl;
+        return;
+    }
+
+    SHA_CTX shaContext;
+    SHA1_Init(&shaContext);
+
+    char buffer[1024];
+    while (inFile.read(buffer, sizeof(buffer))) {
+        SHA1_Update(&shaContext, buffer, inFile.gcount());
+    }
+    SHA1_Update(&shaContext, buffer, inFile.gcount());
+
+    unsigned char hash[SHA_DIGEST_LENGTH];
+    SHA1_Final(hash, &shaContext);
+
+    std::ofstream outFile(outputFile);
+    for (int i = 0; i < SHA_DIGEST_LENGTH; ++i) {
+        outFile << std::hex << std::setw(2) << std::setfill('0') << (int)hash[i];
+    }
+
+    outFile.close();
+    inFile.close();
+    std::cout << "SHA-1 hash has been written to " << outputFile << std::endl;
+}
+
+void encryptWithDES(const std::string& inputFile, const std::string& keyFile, const std::string& outputFile) {
+    std::ifstream keyFileStream(keyFile, std::ios::binary);
+    if (!keyFileStream.is_open()) {
+        std::cerr << "Error opening key file." << std::endl;
+        return;
+    }
+
+    unsigned char key[8];
+    keyFileStream.read(reinterpret_cast<char*>(key), sizeof(key));
+    keyFileStream.close();
+
+    DES_key_schedule schedule;
+    DES_set_key_unchecked(reinterpret_cast<DES_cblock*>(key), &schedule);
+
+    std::ifstream inFile(inputFile, std::ios::binary);
+    if (!inFile.is_open()) {
+        std::cerr << "Error opening input file." << std::endl;
+        return;
+    }
+
+    std::ofstream outFile(outputFile, std::ios::binary);
+
+    unsigned char buffer[8];
+    unsigned char outBuffer[8];
+
+    while (inFile.read(reinterpret_cast<char*>(buffer), sizeof(buffer))) {
+        DES_ncbc_encrypt(buffer, outBuffer, sizeof(buffer), &schedule, (DES_cblock*)key, DES_ENCRYPT);
+        outFile.write(reinterpret_cast<char*>(outBuffer), sizeof(outBuffer));
+    }
+
+    size_t remaining = inFile.gcount();
+    if (remaining > 0) {
+        inFile.read(reinterpret_cast<char*>(buffer), remaining);
+        DES_ncbc_encrypt(buffer, outBuffer, remaining, &schedule, (DES_cblock*)key, DES_ENCRYPT);
+        outFile.write(reinterpret_cast<char*>(outBuffer), remaining);
+    }
+
+    outFile.close();
+    inFile.close();
+    std::cout << "File encrypted with DES and saved to " << outputFile << "." << std::endl;
+}
+
+void generateRSAKeys() {
+    RSA* rsa = RSA_generate_key(2048, RSA_F4, nullptr, nullptr);
+    if (rsa == nullptr) {
+        std::cerr << "Error generating RSA keys." << std::endl;
+        return;
+    }
+
+    FILE* privateKeyFile = fopen("private.pem", "wb");
+    if (privateKeyFile == nullptr) {
+        std::cerr << "Error opening private key file." << std::endl;
+        return;
+    }
+    PEM_write_RSAPrivateKey(privateKeyFile, rsa, nullptr, nullptr, 0, nullptr, nullptr);
+    fclose(privateKeyFile);
+
+    FILE* publicKeyFile = fopen("public.pem", "wb");
+    if (publicKeyFile == nullptr) {
+        std::cerr << "Error opening public key file." << std::endl;
+        return;
+    }
+    PEM_write_RSAPublicKey(publicKeyFile, rsa);
+    fclose(publicKeyFile);
+
+    RSA_free(rsa);
+    std::cout << "RSA keys generated and saved to private.pem and public.pem." << std::endl;
+}
+
+int main() {
+    // Task 1: SHA-1 computation
+    computeSHA1("inClear.txt", "outSHA-1.txt");
+
+    // Task 2: DES encryption
+    encryptWithDES("inClear.txt", "DESkey.txt", "outDES.txt");
+
+    // Task 3: Generate RSA keys
+    generateRSAKeys();
+
+    return 0;
+}

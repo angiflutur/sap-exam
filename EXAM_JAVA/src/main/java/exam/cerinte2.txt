@@ -1,0 +1,77 @@
+###################################
+########## IANUARIE_2025 ##########
+###################################
+- MD5 - hex string
+- HMAC - SHA-1 - Base64
+- integrity - MD5 + HMAC
+- flip bit
+- enc AES ECB PKCS5Padding
+
+###################################
+########## COLOCVIU_2025 ##########
+###################################
+- MD5 - SHA-256 + find file
+- HMAC - SHA-256 - hex
+- derive key with PBKDF2
+- enc AES CBC + IV - Base64
+- enc 3DES ECB - binary + use PBKDF2 key
+- cyclic left shift bits
+
+###################################
+########### IULIE_2024 ############
+###################################
+- SHA-256
+- dec AES CBC PKCS5Padding + IV
+- Keystore + SHA-2 with RSA
+
+###################################
+########## IANUARIE_2023 ##########
+###################################
+- SHA-256
+- AES CBC - IV NoPadding
+- PBKDF2 with HMAC SHA-1 + salt + iterations
+- RSA + X509.cer
+
+###################################
+########## IANUARIE_2016 ##########
+###################################
+- SHA-1
+- dec RSA AES ECB
+- dec AES/ECB/PKCS5Padding
+
+###################################
+###################################
+
+###################################
+############# DAY 01 ##############
+###################################
+- bitwise
+- LFSR
+- strings
+
+###################################
+############# DAY 02 ##############
+###################################
+- colectii
+- fisiere
+- MD5 - BouncyCastle
+- SecureRandom
+
+###################################
+############# DAY 03 ##############
+###################################
+- enc/dec DES/CBC/PKCS5Padding
+- DES/CTR/NoPadding
+- DES/CTS/NoPadding
+- AES/ECB/PKCS5Padding
+- HMAC SHA-1
+- PBKDF2 with HMAC SHA-1
+- OTP
+
+###################################
+############# DAY 04 ##############
+###################################
+- KeyStore
+- AES
+- RSA
+- SHA-1 with RSA

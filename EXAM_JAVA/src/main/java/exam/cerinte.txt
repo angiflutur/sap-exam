@@ -1,0 +1,225 @@
+colocviu 2025:1. Message Integrity: (10 pts)
+o SafeCorp needs you to create a mechanism that will ensure message integrity.
+Implement a solution using a Message Digest algorithm (e.g., SHA-256) to generate
+a hash of the message before it’s sent. When the message is received, the hash
+should be verified to ensure it hasn’t been altered in transit.
+o Objective: Verify file integrity before any operations and find your assigned file.
+o Input: The files from the safecorp_random_messages.zip archive. Extract the files
+and put them in a folder, safecorp_random_messages, in the root of your java
+project
+o Task:
+1. Calculate a Message Digest (e.g., SHA-256) for all the files in
+safecorp_random_messages folder and check it gains the value given to you
+in the Excel file.
+2. If you find your file, print its name on the screen and return its name for
+future use. For the rest of the challenge, we will call this file message.txt (is
+one of the message_X_Y.txt files)
+o Output:
+1. The name of your assigned text file.
+o
+2. Verification of Message Authenticity (10 pts)
+o SafeCorp wants to confirm that messages come from verified users. Implement an
+HMAC (Hash-based Message Authentication Code) using SHA-256 to add an
+authentication tag to each message. This HMAC should be derived from a secret key
+shared between the sender and receiver (given in the MS Excel file).
+o Objective: Ensure authenticity of the received message.
+o Input: your message txt file, message.txt.
+o Task:
+1. Generate an HMAC (e.g., HMAC-SHA256) for your message.txt using a
+shared secret key (given in the MS Excel file).
+2. Save the HMAC as a hex string in the hmac.txt file.
+o Output:
+1. hmac.txt: Contains the HMAC for your allocated message text file.
+3. Password-Based Key Derivation: (10 pts)
+o To ensure all encryption keys are strong and unpredictable, SafeCorp requires that
+all keys are derived from passwords. Use PBKDF2 with salt to derive a symmetric
+encryption key from a given password. Store the salt securely in the message so it
+can be used to verify or decrypt the message on the receiving end.
+o Objective: Securely derive encryption keys from a password.
+o Input: User given password. No of iterations for the PBKDF2
+o Task:
+1. Use PBKDF2 with a salt (you can choose) to derive a symmetric encryption
+key from the password.
+2. The number of iterations are given in the MS Excel file
+3. Save the salt as salt.txt.
+o Output:
+1. salt.txt: Contains the salt used in the PBKDF2 key derivation.
+2. A byte array that can have any required size
+4. Confidentiality with Encryption: (20pts)
+o Messages are being sent in plaintext, which could be intercepted. Implement AES
+encryption in CBC mode to secure the messages during transit. Use a generated
+initialization vector (IV) for each encryption (check the MS Excel file for the IV
+requirements). The generated IV should be sent along with the encrypted message
+in a separate file. For padding use PKCS5.
+o Ensure that the encrypted data is Base64 encoded for safe transfer over text-based
+protocols.
+o Objective: Secure the file content for transmission.
+o Input: message.txt, a key derived from the previous master shared password with
+the PBKDF2 implementation
+o Task:
+1. Encrypt message.txt using AES in CBC mode with a generated initialization
+vector (IV). Check MS Excel for instructions on IV.
+2. Base64 encode both the encrypted content and the IV.
+3. Save the encrypted file as encrypted.txt and the IV in iv.txt.
+o Output:
+1. encrypted.txt: Base64-encoded, AES-CBC-encrypted version of
+message.txt.
+2. iv.txt: Base64-encoded IV used for encryption.
+5. File Encryption Requirement: (20pts)
+o Messages can sometimes contain attached files. Develop functionality to encrypt a
+file using 3DES in ECB mode. Ensure that the file's contents are properly encoded
+for transmission (using Base64) and can be decrypted successfully on the receiving
+end.
+o Objective: Secure the file for archival using an alternate encryption method.
+o Input: message.txt from Step 1, another key derive from PBKDF2.
+o Task:
+1. Encrypt message.txt using 3DES in ECB mode and store the result as
+binary.
+2. Use the previous PBKDF2 function to generate the required key from the
+master password
+3. Save this version as archived.sec.
+o Output:
+1. archived.sec: binary, 3DES-encrypted version of message.txt.
+6. Bitwise Operations for Security Enhancements: (20pts)
+o Implement a simple bitwise operation that, for each byte in the encrypted data,
+toggles specific bits (e.g., shifts bits left by two positions). This will serve as an extra
+layer of obfuscation. Include this step in both encryption and decryption.
+o Objective: Add an extra layer of reversible obfuscation to the encrypted file
+before transmission.
+o Input: encrypted.txt from Step 4 (the AES-CBC-encrypted, Base64-encoded version
+of the original file).
+o Task:
+1. Perform a cyclic (circular) left shift by 2 bits on each byte of the file contents.
+This process rotates the bits in each byte so that the leftmost bits wrap
+around to the right side, preserving all information and making the operation
+reversible.
+2. Save the obfuscated result as obfuscated.txt.
+o Output:
+1. obfuscated.txt: A file where each byte has been cyclically left-shifted by 2
+bits, creating an obfuscated, reversible transformation of encrypted.txt.
+o Reversibility:
+1. To reverse this step, apply a cyclic right shift by 2 bits on each byte of
+obfuscated.txt. This will restore the file to its original encrypted.txt state,
+allowing decryption to be performed in later steps.
+
+########################################################################################################################################################################################
+exam 2016:
+A company is trying to implement a secure solution for online communication. For that, the IT admin
+
+chooses to encrypt the data using AES with a 128 bit key using ECB mode.
+
+In order to send the symmetric key to the client, the company is using a PKI based solution. The AES key
+is stored encrypted in the ClientiSM.key binary file. The key is encrypted using the client RSA public key
+available in the SAPCertificateX509.cer.
+
+In order to assure the client that the key will not be tempered, the admin is sending a separate message
+
+the SHA-1 message digest of the ClientISM.key file.
+(10 p) 1. Please generate and display in Hex format, the SHA-1 value of the ClientISM.key file.
+
+(10 p) 2. Using the client private key, stored in the Java keystore sapkeystore.ks, decrypt the key file and
+
+extract the key plaintext value (and display it as String).
+(5p) 3. Once the client receives the symmetric password, decrypt the Comm.enc file (encrypted with the
+
+AES key in ECB mode with PKCS5 padding)
+
+The keystore has been generated using these commands:
+keytool.exe -genkey keyalg RSA -alias sapkeyl -keypass sapex2016 -storepass passks keystore
+ou=ISM, 0=IT&C Security Master, c=RO"
+
+sapkeystore.ks -dname ''cn=Catalin Boja,
+
+keytool.exe -export -alias sapkey1 file SAPCertificateX509.cer -keystore sapkeystore ks -storepass
+
+passks
+
+
+########################################################################################################################################################################################
+january 2024: 
+PART I (0,5 points)
+A DB admin asks for your help to update the hash value of a user in his/her database.
+He sent you that user password in an encrypted file (with a .user extension). Search for that file as you
+know its SHA256 hash value in Base64 format.
+Print the designated file name at the console.
+PART II (1,5 points)
+Once you found the file, decrypt it (AES in CBC mode with a known IV - check the user’s file (the index
+starts at 0). There is no need for Padding as the file has the required size) using the password sent by
+your friend (check the users.pdf file).
+The decrypted content represents the user password as a string with 16 characters.
+Print the user password at the console.
+PART III (1,5 points)
+Add to the user password the "ism2021" salt at the end and hash it with the PBKDF (Password-Based
+Key Derivation Function) based on HmacSHA1 algorithm with 150 iterations. The output must have
+20 bytes.
+Store the result in a binary file (you can choose the filename name). To get the points, the value must
+be validated by your friend.
+PART IV (1 points)
+To assure your friend that no one is tampering with that value, digitally sign the previous binary file
+with your private key. Store the signature in another binary file.
+Using keytool generate a RSA pair. Export the public key in a X509 .cer file. Use the private key to sign
+the previous file.
+Send your colleague the binary files with the signature and your public certificate.
+To get points the digital signature must be validated for the previous file with your public key.
+########################################################################################################################################################################################
+july 2024:
+You are a forensic cybersecurity specialist employed to recover data from a ransomware attack. This is what you know:
+• The ransomware attack has been conducted by a parasitic virus that encrypted most available files.
+• The encryption was based on AES, with a 128 bit key, randomly secure generated (you can’t brute force it)
+• The attack was stopped before the virus had a chance to send the encryption key to the C&C (Command &
+Control) center.
+• The key is stored locally in a random file. From previous investigations you know that is in one of the files from
+System32 (see the system32.zip given archive).
+• Fortunately, you have the SHA2 fingerprint for all those files, computed 1 month ago (before the attack). They
+are given in the fingerprints.txt file. The values are stored in Base64 encoding.
+(10 p) Use the fingerprints.txt content to identify the file from system32.zip which has been changed.
+(10 p) Using the random password, extracted from the file identified at the previous step, decrypt the
+“financialdata.enc” file into “financialdata.txt”. The virus has encrypted it using AES in CBC mode, with PKCS5Padding.
+Reverse engineering the virus you find out that that the IV had 1st byte (from right to left) equal with 23, 2nd byte equal
+with 20, 3
+rd byte equal with 2 and 4th byte equal with 3. The rest of them are all 0s.
+(5 p) To confirm your success and get your bounty, write the value of the 1st IBAN into myresponse.txt and digital sign
+this file with your private key (you need to generate a private – public key using keytool). The signature is an RSA with
+SHA256 digital signature. Don’t forget to send the “financialdata.txt”, “myresponse.txt” and your signature stored in a
+file called DataSignature.ds
+########################################################################################################################################################################################
+january 2025:
+1. Document Integrity Check (1 point):
+o Scenario: SecureDocs Inc. needs to ensure that documents stored in their system
+have not been tampered with.
+o Task: Implement the generateFilesDigest() method that takes the path of the local
+“messages” folder and computes the Message Digest (MD5) of all the files in that
+location. For each file save the digest as a hex string in a separate file called
+<filename>.digest.
+o For example, for the file message_10_5emaqc.txt you should generate a file named
+message_10_5emaqc.digest with the next value “CEC3C3 …” (the case does not
+matter)
+Your Name ___________________________________________
+2. Secure Document Transfer with Authentication (1 point):
+o Scenario: Documents transferred between systems must be verified for
+authenticity.
+o Task: Implement an HMAC (using SHA-1) to authenticate the document. The HMAC
+should be based on a shared secret key provided by SecureDocs Inc. Check the
+given Excel file for your name. Save the HMAC value of each file, as Base64 text, in
+<filename>.hmac. Do this for all the files in the given folder. This step relies on the
+integrity check done in Step 1 to confirm the file is authentic. The HMAC value is
+stored as Base64 text to provide portability between different systems.
+3. Document Retrieval and Integrity Check (1 point):
+o Scenario: During retrieval, SecureDocs Inc. must verify the integrity and
+authenticity of the document.
+o Task: Implement the step 3 method verifies the document’s HMAC, and regenerates the Message Digest to compare it with the original values stored in the
+.hmac and .digest files. If the HMAC and digest match, display the document
+content. The method must recompute the 2 values and compare them with the ones
+from the files (you can compare them at byte level or hex string or Base64 level –
+your choice)
+4. Generate key for encryption (1 point)
+o Scenario: Documents need to be encrypted before storage. An encryption key must
+be generated from the shared secret
+o Task: Implement the generateSecretKey method by processing the given shared
+secret by flipping a specific bit (if the byte is 1 make it 0, if is 0 make it 1. The
+specific bit is given in the Excel file. The method should return a byte array 128 bits
+5. Secure Document Storage with Encryption (0,5 points):
+o Scenario: Documents need to be encrypted before storage.
+o Task: Using AES encryption in ECB mode and the previous generated key, encrypt a
+given document content. Save the encrypted content to <filename>.enc. Use PKCS
+5 padding.

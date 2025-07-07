@@ -1,0 +1,47 @@
+SAP Exam — February 2016
+
+Student name: Year:
+
+C++
+
+(10p) 1. Write the source code to compute the message digest for the provided input file (inClear.txt),
+using OpenSSL with SHA-1 algorithm. The result is saved into outSHA-1.txt as hexa-pairs figures
+
+(10p) 2. Write the source code to encrypt the provided input file (inClear.txt), using OpenSSL and DES
+CFB encryption algorithm. The key is provided in DESkey.txt (8-byte length), and the result is saved into
+
+outDES.txt file.
+(5p) 3. Write the source code to generate RSA keys and save them as PEM files in order to generate
+
+electronic signature for inClear message.
+
+Java
+A company is trying to implement a secure solution for online communication. For that, the IT admin
+
+chooses to encrypt the data using AES with a 128 bit key using ECB mode.
+
+In order to send the symmetric key to the client, the company is using a PKI based solution. The AES key
+is stored encrypted in the ClientiSM.key binary file. The key is encrypted using the client RSA public key
+available in the SAPCertificateX509.cer.
+
+In order to assure the client that the key will not be tempered, the admin is sending a separate message
+
+the SHA-1 message digest of the ClientISM.key file.
+(10 p) 1. Please generate and display in Hex format, the SHA-1 value of the ClientISM.key file.
+
+(10 p) 2. Using the client private key, stored in the Java keystore sapkeystore.ks, decrypt the key file and
+
+extract the key plaintext value (and display it as String).
+(5p) 3. Once the client receives the symmetric password, decrypt the Comm.enc file (encrypted with the
+
+AES key in ECB mode with PKCS5 padding)
+
+The keystore has been generated using these commands:
+keytool.exe -genkey keyalg RSA -alias sapkeyl -keypass sapex2016 -storepass passks keystore
+ou=ISM, 0=IT&C Security Master, c=RO"
+
+sapkeystore.ks -dname ''cn=Catalin Boja,
+
+keytool.exe -export -alias sapkey1 file SAPCertificateX509.cer -keystore sapkeystore ks -storepass
+
+passks
