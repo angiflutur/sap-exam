@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Angi\\Desktop\\RESTANTE\\EXAM_CPP\\labs\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C81C401-4726-44DC-B3FA-D47C2DF51922}|labs\\labs.vcxproj|C:\\Users\\Angi\\Desktop\\RESTANTE\\EXAM_CPP\\labs\\labs\\HELPER\\Helper.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{5C81C401-4726-44DC-B3FA-D47C2DF51922}|labs\\labs.vcxproj|solutionrelative:labs\\HELPER\\Helper.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{5C81C401-4726-44DC-B3FA-D47C2DF51922}|labs\\labs.vcxproj|C:\\Users\\Angi\\Desktop\\RESTANTE\\EXAM_CPP\\labs\\labs\\EXAM_2025_IAN\\Examen2025.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5C81C401-4726-44DC-B3FA-D47C2DF51922}|labs\\labs.vcxproj|solutionrelative:labs\\EXAM_2025_IAN\\Examen2025.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,35 +13,31 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 13,
+          "DockedWidth": 9,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Helper.cpp",
-              "DocumentMoniker": "C:\\Users\\Angi\\Desktop\\RESTANTE\\EXAM_CPP\\labs\\labs\\HELPER\\Helper.cpp",
-              "RelativeDocumentMoniker": "labs\\HELPER\\Helper.cpp",
-              "ToolTip": "C:\\Users\\Angi\\Desktop\\RESTANTE\\EXAM_CPP\\labs\\labs\\HELPER\\Helper.cpp",
-              "RelativeToolTip": "labs\\HELPER\\Helper.cpp",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAAAAkAAAAVAAAAAAAAAA==",
+              "Title": "Examen2025.cpp",
+              "DocumentMoniker": "C:\\Users\\Angi\\Desktop\\RESTANTE\\EXAM_CPP\\labs\\labs\\EXAM_2025_IAN\\Examen2025.cpp",
+              "RelativeDocumentMoniker": "labs\\EXAM_2025_IAN\\Examen2025.cpp",
+              "ToolTip": "C:\\Users\\Angi\\Desktop\\RESTANTE\\EXAM_CPP\\labs\\labs\\EXAM_2025_IAN\\Examen2025.cpp",
+              "RelativeToolTip": "labs\\EXAM_2025_IAN\\Examen2025.cpp",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-04T05:39:39.757Z",
+              "WhenOpened": "2025-07-08T10:40:35.777Z",
               "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 1,
+          "DockedWidth": 5,
           "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             }
           ]
         }

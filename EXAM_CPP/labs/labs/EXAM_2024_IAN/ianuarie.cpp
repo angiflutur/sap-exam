@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_DEPRECATE
+﻿#define _CRT_SECURE_NO_DEPRECATE
 #include <openssl/sha.h>
 #include <openssl/aes.h>
 #include <openssl/rsa.h>
@@ -126,12 +126,19 @@ int main()
 	size_t sig_size = 0;
 
 	RSA_sign(NID_sha256, computed_SHA, SHA256_DIGEST_LENGTH, signature, &sig_size, rsa);
+	//// în loc să refaci SHA256 pe ciphertext, semnează digest-ul calculat anterior:
+	//RSA_sign(NID_sha256, digest, SHA256_DIGEST_LENGTH, signature, &sig_size, rsa);
+
 
 	f = fopen("EXAM_2024_IAN/digital.sign", "wb");
 	fwrite(signature, sig_size, 1, f);
 	fclose(f);
 
 	RSA_verify(NID_sha256, computed_SHA, SHA256_DIGEST_LENGTH, signature, sig_size, rsa) ? printf("\nVerification of the signature succeeded.") : printf("\nVerification of the signature failed.");
+	//RSA_verify(NID_sha256, digest, SHA256_DIGEST_LENGTH, signature, sig_size, rsa) ?
+	//	printf("\nVerification of the signature succeeded.") :
+	//	printf("\nVerification of the signature failed.");
+
 
 	RSA_free(rsa);
 	free(ciphertext);

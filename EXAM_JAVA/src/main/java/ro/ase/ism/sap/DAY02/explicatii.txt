@@ -1,0 +1,73 @@
+Super întrebare! Hai să clarificăm simplu:
+
+---
+
+## 📄 **Fișiere TEXT** (`.txt`, `.csv`, etc.)
+
+> Se citesc/scriu **ca și text**, linie cu linie sau caracter cu caracter.
+
+### ✅ Folosești:
+
+* `FileWriter` + `PrintWriter` → pentru scriere
+* `FileReader` + `BufferedReader` → pentru citire
+
+### ✏️ Cod scriere `.txt`:
+
+```java
+PrintWriter writer = new PrintWriter(new FileWriter("fisier.txt", true));
+writer.println("Salut!");
+writer.close();
+```
+
+### 📖 Cod citire `.txt`:
+
+```java
+BufferedReader reader = new BufferedReader(new FileReader("fisier.txt"));
+String line;
+while ((line = reader.readLine()) != null) {
+    System.out.println(line);
+}
+reader.close();
+```
+
+---
+
+## 🧱 **Fișiere BINARE** (`.bin`, orice format custom, imagine, etc.)
+
+> Se citesc/scriu **în format binar**: byte cu byte sau cu `readInt()`, `readFloat()` etc.
+
+### ✅ Folosești:
+
+* `DataOutputStream` → pentru scriere
+* `DataInputStream` → pentru citire
+
+### ✏️ Cod scriere `.bin`:
+
+```java
+DataOutputStream dos = new DataOutputStream(new FileOutputStream("fisier.bin"));
+dos.writeInt(42);
+dos.writeUTF("Salut");
+dos.close();
+```
+
+### 📖 Cod citire `.bin`:
+
+```java
+DataInputStream dis = new DataInputStream(new FileInputStream("fisier.bin"));
+int nr = dis.readInt();
+String text = dis.readUTF();
+dis.close();
+```
+
+---
+
+## 📌 TL;DR – ce alegi:
+
+| Tip fișier     | Scriere                     | Citire                         |
+| -------------- | --------------------------- | ------------------------------ |
+| `.txt`, `.csv` | `FileWriter`, `PrintWriter` | `FileReader`, `BufferedReader` |
+| `.bin` (binar) | `DataOutputStream`          | `DataInputStream`              |
+
+---
+
+Vrei și varianta cu `try-with-resources` (mai sigură) sau e ok așa?

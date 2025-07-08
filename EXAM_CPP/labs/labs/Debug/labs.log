@@ -1,3 +1,10 @@
-﻿  Helper.cpp
+﻿  Examen2025.cpp
+C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\labs\EXAM_2025_IAN\Examen2025.cpp(25,16): warning C4566: character represented by universal-character-name '\u0219' cannot be represented in the current code page (1252)
+C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\labs\EXAM_2025_IAN\Examen2025.cpp(66,25): warning C4566: character represented by universal-character-name '\u0103' cannot be represented in the current code page (1252)
+C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\labs\EXAM_2025_IAN\Examen2025.cpp(70,12): warning C4566: character represented by universal-character-name '\u0103' cannot be represented in the current code page (1252)
+C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\labs\EXAM_2025_IAN\Examen2025.cpp(102,20): warning C4566: character represented by universal-character-name '\u0103' cannot be represented in the current code page (1252)
+C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\labs\EXAM_2025_IAN\Examen2025.cpp(114,16): warning C4566: character represented by universal-character-name '\u0103' cannot be represented in the current code page (1252)
+C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\labs\EXAM_2025_IAN\Examen2025.cpp(145,12): warning C4566: character represented by universal-character-name '\u0103' cannot be represented in the current code page (1252)
+C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\labs\EXAM_2025_IAN\Examen2025.cpp(145,12): warning C4566: character represented by universal-character-name '\u0219' cannot be represented in the current code page (1252)
      Creating library C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\Debug\labs.lib and object C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\Debug\labs.exp
   labs.vcxproj -> C:\Users\Angi\Desktop\RESTANTE\EXAM_CPP\labs\Debug\labs.exe

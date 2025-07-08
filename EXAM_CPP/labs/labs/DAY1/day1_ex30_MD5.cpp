@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <malloc.h>
 #include <openssl/md5.h>
 
@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 		unsigned char finalDigest[MD5_DIGEST_LENGTH];
 		MD5_Init(&ctx); // initialization of the MD5_CTX structure
 
-		unsigned char* fileBuffer = NULL;
+		unsigned char* fileBuffer = NULL; //inutila aici pt ca se citeste in chunks
 
 		// the file is opened in binary mode
 		err = fopen_s(&f, argv[1], "rb");
@@ -46,6 +46,22 @@ int main(int argc, char** argv)
 			}
 
 			printf("\n");
+
+			// scriere hash in fisier
+			// Deschide fișierul pentru scrierea hash-ului
+			FILE* outFile = NULL;
+			err = fopen_s(&outFile, "DAY1/md5_output.txt", "w");
+			if (err == 0 && outFile != NULL) {
+				for (int i = 0; i < MD5_DIGEST_LENGTH; i++) {
+					fprintf(outFile, "%02x", finalDigest[i]);
+				}
+				fprintf(outFile, "\n");
+				fclose(outFile);
+				printf("Hash-ul a fost salvat în fisierul md5_output.txt\n");
+			}
+			else {
+				printf("Nu s-a putut crea fișierul de ieșire pentru hash.\n");
+			}
 
 			fclose(f);
 		}

@@ -1,4 +1,4 @@
-#include <openssl/aes.h>
+﻿#include <openssl/aes.h>
 #include <stdio.h>
 #include <malloc.h>
 #include <memory.h>
@@ -67,3 +67,43 @@ int main()
 
 	return 0;
 }
+
+// padding
+//unsigned char* padBuffer(const unsigned char* input, int input_len, int* padded_len) {
+//	int padding = AES_BLOCK_SIZE - (input_len % AES_BLOCK_SIZE);
+//	*padded_len = input_len + padding;
+//
+//	unsigned char* padded = (unsigned char*)malloc(*padded_len);
+//	memcpy(padded, input, input_len);
+//	memset(padded + input_len, padding, padding);
+//
+//	return padded;
+//}
+//int removePadding(unsigned char* data, int data_len) {
+//	int padding = data[data_len - 1];
+//	if (padding > AES_BLOCK_SIZE) return data_len; // fallback în caz de padding invalid
+//	return data_len - padding;
+//}
+////criptare
+//int padded_len;
+//unsigned char* padded_plaintext = padBuffer(plaintext, sizeof(plaintext), &padded_len);
+//
+//ciphertext = (unsigned char*)malloc(padded_len);
+//
+//AES_set_encrypt_key(key_128, 128, &aes_key);
+//AES_cbc_encrypt(padded_plaintext, ciphertext, padded_len, &aes_key, iv, AES_ENCRYPT);
+//
+//printArray(ciphertext, padded_len, "ciphertext");
+//free(padded_plaintext);
+////decriptare
+//unsigned char* decryptedText = (unsigned char*)malloc(padded_len);
+//AES_set_decrypt_key(key_128, 128, &aes_key);
+//AES_cbc_encrypt(ciphertext, decryptedText, padded_len, &aes_key, iv2, AES_DECRYPT);
+//
+//// eliminăm paddingul
+//int unpadded_len = removePadding(decryptedText, padded_len);
+//printArray(decryptedText, unpadded_len, "plaintext restored");
+//
+//// verificăm dacă s-a restaurat corect
+//memcmp(plaintext, decryptedText, unpadded_len) == 0 ?
+//printf("\nDecryption succeeded!") : printf("\nDecryption failed!");

@@ -1,0 +1,128 @@
+AES
+Algoritm simetric bloc, bloc de 128 biți
+
+Chei: 128, 192, 256 biți
+
+Necesită padding: DA (dacă modul de criptare e bloc, ex: CBC)
+
+Moduri suportate: ECB, CBC, CFB, OFB, CTR
+
+Necesită IV: DA (în afară de ECB)
+
+Comentarii: foarte folosit, sigur, rapid
+
+DES
+Algoritm simetric bloc, bloc de 64 biți
+
+Cheie efectivă: 56 biți (din 64, 8 biți sunt paritate)
+
+Necesită padding: DA (pentru mod bloc)
+
+Moduri suportate: ECB, CBC, CFB, OFB, CTR
+
+Necesită IV: DA (în afară de ECB)
+
+Comentarii: vechi, nesigur pentru chei mici, înlocuit de AES
+
+Moduri criptare (block cipher modes)
+ECB (Electronic Codebook):
+
+Nu necesită IV
+
+Nu necesită padding dacă datele sunt multiplu bloc
+
+Nu e sigur pentru date repetitive
+
+CBC (Cipher Block Chaining):
+
+Necesită IV
+
+Necesită padding
+
+Foarte folosit
+
+CFB (Cipher Feedback):
+
+Necesită IV
+
+Nu necesită padding (funcționează ca stream cipher)
+
+OFB (Output Feedback):
+
+Necesită IV
+
+Nu necesită padding
+
+CTR (Counter):
+
+Necesită IV (counter)
+
+Nu necesită padding
+
+RSA
+Algoritm asimetric (cheie publică + cheie privată)
+
+Lungime chei: min 1024 biți (2048 recomandat)
+
+Nu necesită padding pentru criptare directă, dar se folosesc scheme de padding (OAEP) pentru securitate
+
+Nu folosește moduri (nu e algoritm bloc)
+
+Folosit pentru criptare cheie, semnături digitale
+
+LFSR (Linear Feedback Shift Register)
+Generator pseudo-aleator
+
+Folosit în stream cipher
+
+Nu e algoritm de criptare singur
+
+Nu necesită padding, IV
+
+Hash
+Funcție unidirecțională (ex: SHA-256)
+
+Output fix (digest)
+
+Nu necesită cheie, padding intern (în funcție de algoritm)
+
+Nu necesită IV
+
+Folosit pentru integritate
+
+HMAC
+Combinație hash + cheie secretă
+
+Folosit pentru autentificare + integritate
+
+Nu necesită padding extern
+
+Nu necesită IV
+
+OTP (One-Time Pad)
+Cheie aleatorie, lungă cât mesajul
+
+Perfect sigur, dar impracticabil
+
+Nu are moduri, nu necesită padding sau IV
+
+Padding
+Necesitate: în moduri bloc, când datele nu sunt multiplu bloc
+
+Exemple: PKCS#7, PKCS#5, zero padding
+
+Nu e necesar în moduri flux (CFB, OFB, CTR) sau în algoritmi asimetrici
+
+Certificate
+Document digital cu cheia publică + identitate
+
+Emis de CA (Certificate Authority)
+
+Folosit pentru autentificare și infrastructură PKI
+
+IV (Initialization Vector)
+Vector random sau pseudorandom, dimensiune bloc algoritm
+
+Necesită unicitate, nu secret
+
+Folosit în moduri bloc care nu sunt ECB
